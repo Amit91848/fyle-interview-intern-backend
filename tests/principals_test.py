@@ -1,6 +1,17 @@
 from core.models.assignments import AssignmentStateEnum, GradeEnum
 
 
+def test_get_teachers(client, h_principal):
+    response = client.get(
+        '/principal/teachers', 
+        headers=h_principal
+    )
+    
+    assert response.status_code == 200
+    data = response.json['data']
+    assert len(data) == 2
+    
+
 def test_get_assignments(client, h_principal):
     response = client.get(
         '/principal/assignments',
